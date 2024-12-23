@@ -4,7 +4,7 @@ import React from 'react'
 
 export const SliderVideo = () => {
   return (
-    <div className='relative w-full -[80vw] md:h-[56.25vw] lg:h-[45vw]'>
+    <div className='relative w-full -[80vw] md:h-[56.25vw] lg:h-[40vw]'>
         <video
             autoPlay
             loop
@@ -35,6 +35,8 @@ export const SliderVideo = () => {
                 </div>
             </div>
         </div>
+
+        <div className='bg-transparent bg-no-repeat bg-contain w-full opacity-100 top-auto h-[] '/>
     </div>
   )
 }
