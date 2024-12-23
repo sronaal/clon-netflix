@@ -1,28 +1,28 @@
 "use client"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { formSchema } from './LoginForm.form'
 import { z } from 'zod'
 
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import FormError from './FormError/FormError'
 
 
-const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(6),
-})
+
 
 export default function LoginForm() {
 
+    const [error, setError] = useState<string | undefined>('Hola')
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -38,19 +38,17 @@ export default function LoginForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full gap-4 flex flex-col ">
                 <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input className='h-14 text-white' placeholder="Email" {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
+
                             <FormMessage />
                         </FormItem>
                     )}
@@ -62,18 +60,18 @@ export default function LoginForm() {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input type='password' placeholder="password" {...field} />
+                                <Input className='h-14 text-white' type='password' placeholder="Password" {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your private password.
-                            </FormDescription>
+
+
                             <FormMessage />
                         </FormItem>
                     )}
                 />
 
+               <FormError message={error}/>
+                <Button className='w-full bg-[#E50914]' type="submit">Iniciar sesión </Button>
 
-                <Button type="submit">Submit</Button>
             </form>
         </Form>
     )
